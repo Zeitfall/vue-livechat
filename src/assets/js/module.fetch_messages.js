@@ -1,6 +1,6 @@
-import { ref as cref, reactive } from 'vue';
+import { ref as cref } from 'vue';
 
-import firebase_app from '@/assets/js/database';
+import firebase_app from '@/assets/js/module.firebase_app';
 import { ref as fbref, onValue, getDatabase } from 'firebase/database';
 
 const _db = getDatabase(firebase_app);

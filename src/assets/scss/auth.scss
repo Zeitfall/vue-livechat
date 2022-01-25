@@ -1,0 +1,27 @@
+.auth {
+  &__body {
+    display: grid;
+    gap: 10px;
+  }
+
+  &__title {
+    font-size: 24px;
+  }
+
+  &__input {
+    position: relative;
+    margin: 0 0 15px 0;
+  }
+
+  &__input-error {
+    position: absolute;
+    inset: 0;
+    transform: translateY(calc(100% + 5px));
+    font-size: 11px;
+    color: red;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}

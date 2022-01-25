@@ -3,7 +3,7 @@
     <div class="chat__body container">
 
       <div class="chat__header">
-        <div class="chat__title">Live Chat</div>
+        <div class="chat__title">Live Chat {{ current_user.value }}</div>
         <button class="chat__button chat__button_logout btn" @click="logout">
           <span class="material-icons">logout</span>
           <span>Logout</span>
@@ -27,7 +27,7 @@
         </li>
       </ul>
 
-      <form class="chat__submit submit" @submit.prevent="submit">
+      <form class="chat__submit submit" @submit.prevent="on_submit">
         <div class="submit__body container">
           <input
             type="text"
@@ -50,15 +50,21 @@
 </template>
 
 <script>
-import { ref as cref, computed, reactive, onMounted } from 'vue';
+import { ref as cref, computed, reactive, onMounted, onBeforeMount } from 'vue';
 
 import useVuelidate from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-
 import { useRouter, useRoute } from 'vue-router';
 
-import send_message from '@/assets/js/send_message';
-import messages from '@/assets/js/fetch_messages';
+import firebase_app from '@/assets/js/module.firebase_app';
+import {
+  getAuth,
+  signOut,
+  onAuthStateChanged
+} from 'firebase/auth';
+
+import send_message from '@/assets/js/module.send_message';
+import messages from '@/assets/js/module.fetch_messages';
 
 export default {
   setup() {
@@ -72,16 +78,24 @@ export default {
     const v$ = useVuelidate(rules, state);
 
     
-    //router
+    // router
     const _route = useRoute();
     const _router = useRouter();
 
-    const logout = () => {
-      if(!localStorage.getItem('CURRENT_USER')) return;
+   
+    // authentication
+    const logout = async() => {
+      try {
+        const _auth = getAuth(firebase_app);
+        const reponse = await signOut(_auth);
+       
+        localStorage.getItem('CURRENT_USER')
+          ? localStorage.removeItem('CURRENT_USER')
+          : '';
 
-      localStorage.removeItem('CURRENT_USER');
-      _router.push({ name: 'auth' });
-    }
+        _router.push({ name: 'login' });
+      } catch(error) { alert(error); }
+    };
 
 
     // current user
@@ -97,7 +111,7 @@ export default {
     }
 
     onMounted(() => {
-      if(!current_user) _router.push({ name: 'auth' });
+      if(!current_user) _router.push({ name: 'login' });
 
       window.addEventListener('resize', () => {        
         scroll_down('.chat__list');
@@ -115,13 +129,14 @@ export default {
     }
   },
   methods: {
-    submit () {
+    on_submit() {
       this.v$.$validate();
-
       if(this.v$.$error) return;
+
 
       send_message(this.current_user, this.state.new_message);
       this.state.new_message = '';
+
 
       this.scroll_down('.chat__list');
     }

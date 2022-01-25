@@ -1,4 +1,4 @@
-import firebase_app from '@/assets/js/database';
+import firebase_app from '@/assets/js/module.firebase_app';
 import { getDatabase, set, ref, push } from 'firebase/database';
 
 export default function send_message(user, message) {

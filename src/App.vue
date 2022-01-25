@@ -11,6 +11,13 @@ import { useRouter, useRoute } from 'vue-router';
 import empty_layout from '@/layouts/empty';
 import main_layout from '@/layouts/main';
 
+import firebase_app from '@/assets/js/module.firebase_app';
+import {
+  getAuth,
+  signOut,
+  onAuthStateChanged
+} from 'firebase/auth';
+
 export default {
   components: {
     empty_layout,
@@ -29,6 +36,16 @@ export default {
       }
     })
 
+    // const _auth = getAuth(firebase_app);
+
+    // onAuthStateChanged(_auth, user => {
+    //   if(user) { _router.push({ name: 'chat' }) }
+    //   else {
+    //     return;
+    //     // _router.push({ name: 'login' });
+    //   }
+    // });
+
     return {
       layout
     }
@@ -40,6 +57,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;700;900&display=swap');
 @import '@/assets/scss/_null.scss';
 @import '@/assets/scss/_global.scss';
+@import '@/assets/scss/auth.scss';
 
 * {
   margin: 0;
