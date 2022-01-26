@@ -1,7 +1,10 @@
 <template>
   <form class="auth" @submit.prevent="register">
     <div class="auth__body">
-      <div class="auth__title">Live Chat (register)</div>
+      <div class="auth__header">
+        <div class="auth__title">Live Chat</div>
+        <div class="auth__subtitle">registration</div>
+      </div>
 
       <div class="auth__input">
         <input

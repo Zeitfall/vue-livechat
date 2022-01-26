@@ -1,16 +1,32 @@
 .auth {
+  flex: 1 1 100%;
+
   &__body {
     display: grid;
-    gap: 10px;
+    gap: 20px;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
   }
 
   &__title {
-    font-size: 24px;
+    font-size: 28px;
+  }
+
+  &__subtitle {
+    text-align: center;
+    font-size: 16px;
+    color: $msg-color;
   }
 
   &__input {
     position: relative;
-    margin: 0 0 15px 0;
+    // margin: 0 0 15px 0;
   }
 
   &__input-error {
@@ -23,5 +39,8 @@
 
   &__button {
     width: 100%;
+  }
+
+  &__redirect {
   }
 }

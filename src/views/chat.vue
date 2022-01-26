@@ -25,6 +25,13 @@
             <div class="message__content">{{ m.message }}</div>
           </div>
         </li>
+
+        <div class="chat__empty"
+          v-if="messages.length === 0"
+        >
+          <span>It's quiet here</span>
+          <span class="material-icons">sentiment_dissatisfied</span>
+        </div>
       </ul>
 
       <form class="chat__submit submit" @submit.prevent="on_submit">
@@ -37,10 +44,10 @@
           >
           <button 
             type="submit"
-            class="submit__button chat__button_submit btn" 
+            class="submit__button" 
             :disabled="v$.new_message.$invalid && v$.new_message.$dirty">
               <span class="material-icons">send</span>
-              <span>Send</span>
+              <!-- <span>Send</span> -->
             </button>
         </div>
       </form>
@@ -108,7 +115,7 @@ export default {
     const scroll_down = query => {
       const block = document.querySelector(query);
       block.scrollTop = block.scrollHeight;
-    }
+    };
 
     onMounted(() => {
       if(!current_user) _router.push({ name: 'login' });
@@ -117,7 +124,7 @@ export default {
         scroll_down('.chat__list');
       })
     })
-
+    
 
     return {
       v$,
@@ -186,6 +193,19 @@ export default {
   }
 
   &__submit {}
+
+  &__empty {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      font-size: 36px;
+      color: rgb(185, 184, 184);
+    }
+  }
 }
 
 .message {
@@ -216,6 +236,8 @@ export default {
 
   &__content {
     flex: 0 1 100%;
+    word-break: break-word;
+
     line-height: 16px;
   }
 }
@@ -234,6 +256,7 @@ export default {
 
   &__body {
     flex: 1 1 100%;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -241,9 +264,32 @@ export default {
   }
 
   &__input {
-    // flex: 0 1 auto;
+    flex: 0 1 auto;
+    word-break: break-word;
+    color: $msg-color;
+    padding: 5px 60px 5px 20px;
+    width: 100%;
+    margin: 0;
   }
 
-  &__button {}
+  &__button {
+    position: absolute;
+    right: 0;
+    width: 50px;
+    height: 100%;
+
+    transform: translateX(calc(-50%));
+
+    background-color: transparent;
+    color: $msg-color;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+  }
 }
 </style>

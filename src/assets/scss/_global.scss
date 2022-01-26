@@ -1,21 +1,25 @@
 $padding: 20px;
-$bcg-color: #fff;
+$bcg-color: #eee;
+$inpt-color: #e1e1e1;
+$btn-color: #e1e1e1;
 $date-color: #888;
-$user-color: #000;
-$msg-color: #333;
+$user-color: rgb(0, 0, 0);
+$msg-color: rgb(107, 107, 107);
 
 .inpt {
   height: 100%;
   width: 100%;
-  padding: 5px;
+  max-height: 40px;
+  padding: 10px;
   margin: 0 20px 0 0;
-  border: 1px solid black;
   border-radius: 5px;
+  background-color: $inpt-color;
 }
 
 .btn {
   height: 100%;
   width: 100%;
+  max-height: 40px;
 
   display: flex;
   align-items: center;
@@ -23,6 +27,9 @@ $msg-color: #333;
 
   padding: 5px;
   border-radius: 5px;
+
+  color: $msg-color;
+  background-color: $btn-color;
 
   span:first-child { margin: 0 5px 0 0; }
 }

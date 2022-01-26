@@ -11,6 +11,8 @@ let messages = cref([]);
 onValue(_ref, snapshot => {
   let _array = [];
 
+  if(!snapshot.val()) return;
+
   for(const m of Object.entries(snapshot.val())) {
     _array.push({
       key: m[0],
